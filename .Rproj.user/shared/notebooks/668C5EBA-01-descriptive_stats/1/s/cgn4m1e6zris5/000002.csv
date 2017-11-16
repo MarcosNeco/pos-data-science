@@ -1,0 +1,13 @@
+"0","```r
+# Seu cÃ³digo aqui
+summary(acessos$Acessos)
+```"
+"1","   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  0.000   0.000   1.500   3.233   6.500  13.000 
+"
+"0","```r
+#aqui nesse caso usei a funÃ§Ã£o pronta que mostra o resultado interquartil
+IQR(acessos$Acessos)
+```"
+"1","[1] 6.5
+"

@@ -1,0 +1,5 @@
+"0","```r
+# arrange Ã© uma funÃ§Ã£o que ordena um Data Frame em ordem crescente (default) 
+# ou decrescente (usando a funÃ§Ã£o desc para indicar)
+acessos %>% arrange(desc(Acessos))
+```"

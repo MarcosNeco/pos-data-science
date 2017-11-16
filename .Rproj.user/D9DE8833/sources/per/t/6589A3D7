@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1510781458165.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1984242699",
+    "id" : "6589A3D7",
+    "lastKnownWriteTime" : 1510191399,
+    "last_content_update" : 1510191399,
+    "path" : "C:/Users/Marcos Neco/Downloads/aulas_r/data-analysis_with_R-master/02_descriptive_dplyr/presentation/01-descriptive_stats.Rmd",
+    "project_path" : null,
+    "properties" : {
+        "chunk_output_type" : "inline",
+        "cursorPosition" : "16,0",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

@@ -1,0 +1,14 @@
+"0","```r
+#Primeiro Quartil
+quantile(acessos_hora_ordered)[2]
+```"
+"1","25% 
+  0 
+"
+"0","```r
+#Terceiro Quaril
+quantile(acessos_hora_ordered)[4]
+```"
+"1"," 75% 
+7.25 
+"

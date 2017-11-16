@@ -1,0 +1,6 @@
+"0","```r
+# MÃ©dica artimÃ©tica de acesso por hora
+mean(acessos_hora$Hits)
+```"
+"1","[1] 4.041667
+"

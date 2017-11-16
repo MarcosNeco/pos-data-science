@@ -1,0 +1,8 @@
+"0","```r
+library(tidyverse)
+library(readxl)
+# A funÃ§Ã£o read_xlsx lÃª um Data Frame de uma aba de um aquivo Excel.
+acessos <- read_xlsx( path = \"../data/usage_tracking.xlsx\"
+                    , sheet = \"Item_Tracking\"
+                    , col_types = c(\"text\", \"numeric\"))
+```"

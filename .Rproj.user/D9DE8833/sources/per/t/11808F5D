@@ -1,0 +1,24 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1510771893190.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1760823050",
+    "id" : "11808F5D",
+    "lastKnownWriteTime" : 1510797286,
+    "last_content_update" : 1510797286279,
+    "path" : "E:/Pós Graduação Trabalhos/ml_games_amazon/ML_amazon_games.Rmd",
+    "project_path" : "ML_amazon_games.Rmd",
+    "properties" : {
+        "chunk_output_type" : "inline",
+        "cursorPosition" : "26,67",
+        "scrollLine" : "23",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

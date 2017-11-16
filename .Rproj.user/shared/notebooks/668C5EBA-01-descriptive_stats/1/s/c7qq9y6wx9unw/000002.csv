@@ -1,0 +1,16 @@
+"0","```r
+# Primeira etapa
+# sort ordena um vetor. Ã‰ uma operaÃ§Ã£o diferente da funÃ§Ã£o arrange apresentada anteriormente
+acessos_ordenados <- sort(acessos$Acessos)
+# Segunda etapa
+# Lembram da funÃ§Ã£o length?
+n <- length(acessos_ordenados)
+extremes <- n * .1
+lo <- extremes + 1 # Por que somei 1?
+hi <- n - extremes
+acessos_trunc <- acessos_ordenados[lo:hi]
+# MÃ©dia aritmÃ©tica
+mean(acessos_trunc)
+```"
+"1","[1] 2.75
+"

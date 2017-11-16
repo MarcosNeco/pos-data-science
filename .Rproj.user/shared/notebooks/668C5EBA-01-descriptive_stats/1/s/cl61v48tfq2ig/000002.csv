@@ -1,0 +1,8 @@
+"0","```r
+#visÃ£o tabular
+acessos_hora <- read_xlsx(path = \"../data/hourly_track.xlsx\",
+          sheet = \"Sheet1\",
+          col_types = c(\"numeric\", \"numeric\"))
+acessos_hora_ordered <- sort(acessos_hora$Hits)
+acessos_hora  %>% arrange(acessos_hora$Hits)
+```"

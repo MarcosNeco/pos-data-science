@@ -1,0 +1,11 @@
+//Instalar pacote para leitura de arquivos json no r
+
+install.packages("rjson")
+
+// Instalar pacotes para conectar R com o Mongo
+ library(devtools)
+ install_github(repo = "mongosoup/rmongodb")
+
+//Importar arquivo json para o mongo na nuvem
+
+mongoimport -h ds163705.mlab.com:63705 -d games_amazon -c metadata -u <user> -p <password> --file <input file>

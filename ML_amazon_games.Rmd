@@ -1,0 +1,51 @@
+---
+title: "Trabalho final Machine Learning I"
+output:
+  html_notebook:
+    theme: united
+    toc: yes
+    toc_depth: 2
+  html_document:
+    df_print: paged
+    toc: yes
+    toc_depth: '2'
+  pdf_document:
+    theme: united
+    toc: yes
+    toc_depth: 2
+authores: Marcos Neco e Fabio Rowedder
+---
+
+##Abordagem do problema
+
+Questões que esperamos explorar no nosso conjutos de dados 
+
+* Quais grupos de games frequentemente comprados em conjunto? (Clusterização)
+* Qual será a nota atribuída por um cliente amazon para determinado Game, baseado nos dados histórico? (Regressão) 
+
+## Fase de pré-processamento 
+ 1. Foi necessário deletar todas as linhas que não estavam corretamente no padrão json, para que o import e futuramente o processamento no mongodb possa ser feito corretamente
+
+
+##Análise exploratória
+
+
+```{r}
+#leitura dos dados em formado json
+library("rjson")
+games_review <- fromJSON(file = "data_amazon/review_games.json")
+games_metadata <- fromJSON(file = "data_amazon/metadata_games.json")
+```
+
+ Agora o próximo passo é descobrir a variável que tenha maior correlação com a variável que estamos tentando predizer, ou seja, a variável overall que representa a nota dada pelo jogo.
+ 
+ 
+```{r}
+#Gráfico de dispersão com
+review_df  <- data.frame(sample(games_review))
+metadata_df  <- data.frame(sample(games_metadata))
+review_meta_df <- merge(x = review_df, y = metadata_df, by = "asin", all = TRUE)
+
+scatter.smooth(x=review_meta_df$overall, y = review_meta_df$price, main="Overall ~ Price")
+```
+
