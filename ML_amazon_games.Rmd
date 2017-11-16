@@ -24,8 +24,8 @@ Questões que esperamos explorar no nosso conjutos de dados
 * Qual será a nota atribuída por um cliente amazon para determinado Game, baseado nos dados histórico? (Regressão) 
 
 ## Fase de pré-processamento 
- 1. Foi necessário deletar todas as linhas que não estavam corretamente no padrão json, para que o import e futuramente o processamento no mongodb possa ser feito corretamente
-
+ 1. Foi necessário deletar todas as linhas que não estavam no padrão json, para que o import e futuramente o processamento no mongodb possa ser feito corretamente
+ 2. Importar os arquivos de review e metadata para o mongodb na nuvem
 
 ##Análise exploratória
 
@@ -33,8 +33,17 @@ Questões que esperamos explorar no nosso conjutos de dados
 ```{r}
 #leitura dos dados em formado json
 library("rjson")
-games_review <- fromJSON(file = "data_amazon/review_games.json")
-games_metadata <- fromJSON(file = "data_amazon/metadata_games.json")
+library("rmongodb")
+library("devtools")
+
+
+
+connection <- mongo.create(host = "ds163705.mlab.com:63705", timeout = 10000)
+mongo.authenticate(connection, username = "marcos_neco",password = "041193", db = "games_amazon")
+mongo.is.connected(connection)
+
+mongo.find(mongo = connection, ns = "metadata")
+
 ```
 
  Agora o próximo passo é descobrir a variável que tenha maior correlação com a variável que estamos tentando predizer, ou seja, a variável overall que representa a nota dada pelo jogo.
