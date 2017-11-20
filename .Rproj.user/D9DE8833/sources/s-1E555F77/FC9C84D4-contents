@@ -1,0 +1,83 @@
+
+json_file <- "data/meta_Digital_Music_strict.json"
+
+  df_raw_data <- jsonlite::fromJSON(paste("[",paste(readLines(json_file),collapse=","),"]"),simplifyDataFrame = TRUE)
+
+
+
+
+
+
+# Cria um data.frame vazio, com os campos asin (identificador do produto), 
+# media (vinyl, etc.) e genre (generos musicais)
+
+df_work <- data.frame(asin=character(),media=character(),genre=character())
+
+# Função que recebe asin, media e genre para adicionar no data.frame
+append_df_work <- function(asin,media,genre) {
+  df_work <<-  rbind(df_work,
+                     data.frame(asin=asin,
+                                media=media,
+                                genre=genre))
+}
+
+# Numero total de linhas
+nrow_df_raw_data <- nrow(df_raw_data)
+
+
+# Tratamento de erros, se der erro me diz em que linha parou
+tryCatch({
+  # Laço em todas as instancias de produto
+  for(l01 in 1:nrow_df_raw_data) {
+    # Exibe o contador a cada 100 linhas
+    if(l01 %% 100 == 0) {
+      print(paste0(l01," / ",nrow_df_raw_data))
+    }
+    # Para cada produto lista as categories existentes
+    for(l02 in 1:length(df_raw_data[l01,c("categories")])) {
+      # Para cada item da lista de categories elenca as listas existentes
+      for(l03 in 1:length(df_raw_data[l01,c("categories")][[l02]])) {
+        # Se este item não é uma lista, significa que chegamos aos dados
+        if(!is.list(df_raw_data[l01,c("categories")][[l02]])) {
+          # Varre os dados primitivos para gravar no data.frame
+          for(l03a in 2:length(df_raw_data[l01,c("categories")][[l02]])) {
+            # Este if trata um erro associado a linha 7478, onde havia somente
+            # a midia mas não havia genero, escolhi descartas
+            if(length(df_raw_data[l01,c("categories")][[l02]])==1) {
+              break
+            }
+            # Chamada a função, passando o conteudo de asin e media, para cada um 
+            # dosgeneros
+            append_df_work(asin = df_raw_data[l01,c("asin")],
+                           media = df_raw_data[l01,c("categories")][[l02]][[1]],
+                           genre = df_raw_data[l01,c("categories")][[l02]][[l03a]])
+          }
+          # Sai do loop interno, pois já chegou nos dados e não existem mais listas
+          # para processar
+          break
+        }
+        # Não identifiquei um nivel de encadeamento superior a este, assim chegamos aos
+        # dados, agora é varrer a lista e gravar
+        for(l04 in 2:length(df_raw_data[l01,c("categories")][[l02]][[l03]])) {
+          # Chamada a função, passando o conteudo de asin e media, para cada um 
+          # dos generos
+          append_df_work(asin = df_raw_data[l01,c("asin")],
+                         media = df_raw_data[l01,c("categories")][[l02]][[l03]][[1]],
+                         genre = df_raw_data[l01,c("categories")][[l02]][[l03]][[l04]])
+        }
+      }
+    }
+  }
+}, error = function(e) {
+  # Em caso de erro, informa a linha onde ocorreu.
+  # É util pois ajuda a entender se uma composição não prevista foi encontrada
+  print(paste0("Erro na linha #",l01))
+})
+
+View(df_work)
+
+ nrow(df_work)
+
+write.table(df_work,file="categories.csv",sep=";",col.names = TRUE,row.names = FALSE)
+
+write.table(df_work, file = "Categories.csv",row.names=FALSE, na="",col.names=FALSE, sep=";")
