@@ -9,6 +9,7 @@
 <meta name="generator" content="pandoc" />
 
 
+<meta name="author" content="Marcos Neco e Fabio Rowedder" />
 
 
 <title>Trabalho final Machine Learning I</title>
@@ -167,6 +168,7 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Trabalho final Machine Learning I</h1>
+<h4 class="author"><em>Marcos Neco e Fabio Rowedder</em></h4>
 
 </div>
 
@@ -174,7 +176,8 @@ $(document).ready(function () {
 <ul>
 <li><a href="#abordagem-do-problema">Abordagem do problema</a></li>
 <li><a href="#fase-de-pra-processamento">Fase de prÃ©-processamento</a></li>
-<li><a href="#analise-explorataria">AnÃ¡lise exploratÃ³ria</a></li>
+<li><a href="#analise-explorataria-e-resultados">AnÃ¡lise exploratÃ³ria e Resultados</a></li>
+<li><a href="#conclusao">ConclusÃ£o</a></li>
 </ul>
 </div>
 
@@ -189,84 +192,102 @@ $(document).ready(function () {
 </div>
 <div id="fase-de-pra-processamento" class="section level2">
 <h2>Fase de prÃ©-processamento</h2>
-<ol style="list-style-type: decimal">
+<p>Foram feitos dois prÃ©-processamentos nos dados, um para criar os grupos dos itens mais comprados em conjunto e outro para a anÃ¡lise de regressÃ£o linear.</p>
+<ul>
+<li>AnÃ¡lise de regressÃ£o
+<ul>
 <li>Foi necessÃ¡rio deletar todas as linhas que nÃ£o estavam no padrÃ£o json, para que o import e futuramente o processamento no mongodb possa ser feito corretamente</li>
 <li>Importar os arquivos de review e metadata para o mongodb na nuvem</li>
-</ol>
+<li>Remover todas as revisÃµes na qual nÃ£o esta sendo informado o preÃ§o do produto no arquivo de metadata.</li>
+</ul></li>
+<li>ClusterizaÃ§Ã£o de produtos mais comprados
+<ul>
+<li>devido Ã  limitaÃ§Ã£o de poder de processamento em hardware, foi necessÃ¡rio reduzir o dataset de anÃ¡lise de dados. Assim, foram considerados os aplicativos que receberam nota 5 de avaliaÃ§Ã£o (overall 5.0) e que foram comprados em conjunto com outros aplicativos. Isso ajudou a potencializar as sugestÃµes feitas, uma vez que sÃ³ aplicativos com Ã³tima reputaÃ§Ã£o serÃ£o sugeridos.</li>
+<li>Ainda para a tarefa de clusterizaÃ§Ã£o, foi necessÃ¡rio desenvolver um aplicativo Java para gerar uma matriz binÃ¡ria das vendas de aplicativos. Essa matriz Ã© o input para o processamento de clusterizaÃ§Ã£o no RapidMiner (Esse arquivo esta dentro da pasta data do projeto, meta_Video_GamesBinaryMatrix.7z)</li>
+</ul></li>
+</ul>
 </div>
-<div id="analise-explorataria" class="section level2">
-<h2>AnÃ¡lise exploratÃ³ria</h2>
+<div id="analise-explorataria-e-resultados" class="section level1">
+<h1>AnÃ¡lise exploratÃ³ria e Resultados</h1>
+<p>Abaixo quais anÃ¡lises foram utilizadas para entender os dados.</p>
+<div id="regressao-linear" class="section level3">
+<h3>RegressÃ£o Linear</h3>
+<p>Primeiro passo Ã© carregar os dados que estÃ£o salvos no mongo, neste caso o banco estÃ¡ localizado na nuvem. O banco possui as collections review e metadata, a primeira possui informaÃ§Ãµes como o texto escrito de revisÃ£o e a nota dada ao produto, jÃ¡ na metadata estÃ£o algumas informaÃ§Ãµes relacioanadas ao produto como preÃ§o e categoria.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI2xlaXR1cmEgZG9zIGRhZG9zIGVtIGZvcm1hZG8ganNvblxubGlicmFyeShcInJqc29uXCIpXG5saWJyYXJ5KFwibW9uZ29saXRlXCIpXG5saWJyYXJ5KFwiZGV2dG9vbHNcIilcblxuZHJpdmVyX2Nvbm5lY3RvciA9IFwibW9uZ29kYjovL3Bvc19kYXRhc2NpZW5jZTpwb3MxMjM0QGRzMTYzNzA1Lm1sYWIuY29tOjYzNzA1L2dhbWVzX2FtYXpvblwiXG5cbnJldmlldyA8LSBtb25nbyhjb2xsZWN0aW9uID0gXCJyZXZpZXdcIiwgXG4gICAgICAgICAgICAgICB2ZXJib3NlID0gVFJVRSxcbiAgICAgICAgICAgICAgIHVybCA9IGRyaXZlcl9jb25uZWN0b3IpXG5cbm1ldGFkYXRhIDwtIG1vbmdvKGNvbGxlY3Rpb24gPSBcIm1ldGFkYXRhXCIsIFxuICAgICAgICAgICAgICAgdmVyYm9zZSA9IFRSVUUsXG4gICAgICAgICAgICAgICB1cmwgPSBkcml2ZXJfY29ubmVjdG9yKVxuXG5wcmljZSA8LSBtZXRhZGF0YSRmaW5kKFxuICBmaWVsZHMgPSd7XCJhc2luXCI6dHJ1ZSwgXCJwcmljZVwiOiB0cnVlfScsXG4gIGxpbWl0ID0gMTAwMFxuKVxuXG5vdmVyYWxsIDwtIHJldmlldyRmaW5kKFxuICBmaWVsZHMgPSAne1wiYXNpblwiOnRydWUsIFwib3ZlcmFsbFwiOnRydWV9JyxcbiAgbGltaXQgPSAxMDAwXG4pXG5cbnByaWNlX292ZXJhbGwgPSBtZXJnZShwcmljZSwgb3ZlcmFsbCwgXCJhc2luXCIpXG4gbGVuZ3RoKHByaWNlX292ZXJhbGwkcHJpY2UpXG5cbiNzY2F0dGVyLnNtb290aCh4PXByaWNlX292ZXJhbGwkcHJpY2UpLCB5ID0gYWJzKHByaWNlX292ZXJhbGwkb3ZlcmFsbCkpXG5gYGAifQ== -->
-<pre class="r"><code>#leitura dos dados em formado json
-library(&quot;rjson&quot;)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI2JpYmxpb3RlY2EgcGFyYSBjb25leMODwqNvIGNvbSBvIGJhbmNvIGRlIGRhZG9zIG1vbmdvXG5saWJyYXJ5KFwibW9uZ29saXRlXCIpXG5saWJyYXJ5KFwiZGV2dG9vbHNcIilcbmxpYnJhcnkoXCJkcGx5clwiKVxuXG4jVXJsIGRlIGNvbmV4w4PCo28gdm9tIG8gYmFuY29cbmRyaXZlcl9jb25uZWN0b3IgPSBcIm1vbmdvZGI6Ly9wb3NfZGF0YXNjaWVuY2U6cG9zMTIzNEBkczE2MzcwNS5tbGFiLmNvbTo2MzcwNS9nYW1lc19hbWF6b25cIlxuXG5yZXZpZXcgPC0gbW9uZ28oY29sbGVjdGlvbiA9IFwicmV2aWV3XCIsIFxuICAgICAgICAgICAgICAgdmVyYm9zZSA9IFRSVUUsXG4gICAgICAgICAgICAgICB1cmwgPSBkcml2ZXJfY29ubmVjdG9yKVxuXG5cbiNDb25zdWx0YSBkb3MgZGFkb3MsIHVuaW5kbyBhcyBkdWFzIGNvbGxlY3Rpb25zIHBlbG8gY8ODwrNkaWdvIGRvIHByb2R1dG9cbnJldmlld19tZXRhZGF0YSA8LSByZXZpZXckYWdncmVnYXRlKCdbXG4gICAgICAgICAge1wiJGxvb2t1cFwiIDoge1xuICAgICAgICAgICAgXCJmcm9tXCIgOiBcIm1ldGFkYXRhXCIsXG4gICAgICAgICAgICBcImxvY2FsRmllbGRcIiA6IFwiYXNpblwiLFxuICAgICAgICAgICAgXCJmb3JlaWduRmllbGRcIiA6IFwiYXNpblwiLFxuICAgICAgICAgICAgXCJhc1wiIDogXCJtZXRhZGF0YVwiXG4gICAgICAgICAgfX0sXG4gICAgICAgICAge1wiJGxpbWl0XCI6IDUwMH1cbiAgICAgIF0nKVxuXG5gYGAifQ== -->
+<pre class="r"><code>#biblioteca para conexÃ£o com o banco de dados mongo
 library(&quot;mongolite&quot;)
 library(&quot;devtools&quot;)
+library(&quot;dplyr&quot;)
 
+#Url de conexÃ£o vom o banco
 driver_connector = &quot;mongodb://pos_datascience:pos1234@ds163705.mlab.com:63705/games_amazon&quot;
 
 review &lt;- mongo(collection = &quot;review&quot;, 
                verbose = TRUE,
                url = driver_connector)
 
-metadata &lt;- mongo(collection = &quot;metadata&quot;, 
-               verbose = TRUE,
-               url = driver_connector)
 
-price &lt;- metadata$find(
-  fields ='{&quot;asin&quot;:true, &quot;price&quot;: true}',
-  limit = 1000
-)
-
-overall &lt;- review$find(
-  fields = '{&quot;asin&quot;:true, &quot;overall&quot;:true}',
-  limit = 1000
-)
-
-price_overall = merge(price, overall, &quot;asin&quot;)
- length(price_overall$price)
-
-#scatter.smooth(x=price_overall$price), y = abs(price_overall$overall))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5saWJyYXJ5KFwicm1vbmdvZGJcIilcblxuY29ubmVjdGlvbiA8LSBtb25nby5jcmVhdGUoaG9zdCA9IFwiZHMxNjM3MDUubWxhYi5jb206NjM3MDVcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgIGRiID0gXCJnYW1lc19hbWF6b25cIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgIHRpbWVvdXQgPSAxMDAwKVxuXG5tb25nby5hdXRoZW50aWNhdGUoY29ubmVjdGlvbiwgXCJwb3NfZGF0YXNjaWVuY2VcIiwgXCJwb3MxMjM0XCIpXG5cbm1vbmdvLmlzLmNvbm5lY3RlZChjb25uZWN0aW9uKVxuXG5tb25nby5maW5kLm9uZShjb25uZWN0aW9uLCBcInJldmlld1wiKVxuXG5gYGAifQ== -->
-<pre class="r"><code>
-library(&quot;rmongodb&quot;)
-
-connection &lt;- mongo.create(host = &quot;ds163705.mlab.com:63705&quot;,
-                           db = &quot;games_amazon&quot;,
-                           timeout = 1000)
-
-mongo.authenticate(connection, &quot;pos_datascience&quot;, &quot;pos1234&quot;)
-
-mongo.is.connected(connection)
-
-mongo.find.one(connection, &quot;review&quot;)
+#Consulta dos dados, unindo as duas collections pelo cÃ³digo do produto
+review_metadata &lt;- review$aggregate('[
+          {&quot;$lookup&quot; : {
+            &quot;from&quot; : &quot;metadata&quot;,
+            &quot;localField&quot; : &quot;asin&quot;,
+            &quot;foreignField&quot; : &quot;asin&quot;,
+            &quot;as&quot; : &quot;metadata&quot;
+          }},
+          {&quot;$limit&quot;: 500}
+      ]')
 </code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Agora o prÃ³ximo passo Ã© descobrir a variÃ¡vel que tenha maior correlaÃ§Ã£o com a variÃ¡vel que estamos tentando predizer, ou seja, a variÃ¡vel overall que representa a nota dada pelo jogo.</p>
+<p>GrÃ¡fico de regressÃ£o, para tentar identificar se existe alguma relaÃ§Ã£o entre o preÃ§o do produto e a nota dada para aquele produto.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0dyw4PCoWZpY28gZGUgZGlzcGVyc8ODwqNvIGNvbVxucmV2aWV3X2RmICA8LSBkYXRhLmZyYW1lKHNhbXBsZShnYW1lc19yZXZpZXcpKVxubWV0YWRhdGFfZGYgIDwtIGRhdGEuZnJhbWUoc2FtcGxlKGdhbWVzX21ldGFkYXRhKSlcbnJldmlld19tZXRhX2RmIDwtIG1lcmdlKHggPSByZXZpZXdfZGYsIHkgPSBtZXRhZGF0YV9kZiwgYnkgPSBcImFzaW5cIiwgYWxsID0gVFJVRSlcblxuc2NhdHRlci5zbW9vdGgoeD1yZXZpZXdfbWV0YV9kZiRvdmVyYWxsLCB5ID0gcmV2aWV3X21ldGFfZGYkcHJpY2UsIG1haW49XCJPdmVyYWxsIH4gUHJpY2VcIilcbmBgYCJ9 -->
-<pre class="r"><code>#GrÃ¡fico de dispersÃ£o com
-review_df  &lt;- data.frame(sample(games_review))
-metadata_df  &lt;- data.frame(sample(games_metadata))
-review_meta_df &lt;- merge(x = review_df, y = metadata_df, by = &quot;asin&quot;, all = TRUE)
-
-scatter.smooth(x=review_meta_df$overall, y = review_meta_df$price, main=&quot;Overall ~ Price&quot;)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0FxdWkgZm9pIG5lY2Vzc8ODwqFyaW8gZXh0cmFpciBhcGVuYXMgbyBwcmXDg8KnbyBkYSBjb2x1bmEgbWV0YWRhdGFcbnJldmlld19tZXRhZGF0YSA9IHJldmlld19tZXRhZGF0YSAlPiVcbiAgbXV0YXRlKHByaWNlID0gdW5saXN0KGxhcHBseShyZXZpZXdfbWV0YWRhdGFbWydtZXRhZGF0YSddXSwgJ1tbJywgXCJwcmljZVwiKSkpXG4gIFxuc2NhdHRlci5zbW9vdGgoeD1yZXZpZXdfbWV0YWRhdGEkcHJpY2UsIHkgPSByZXZpZXdfbWV0YWRhdGEkb3ZlcmFsbCwgeGxhYiA9IFwiUHJlw4PCp29cIiwgeWxhYiA9XCJOb3RhXCIpXG5gYGAifQ== -->
+<pre class="r"><code>#Aqui foi necessÃ¡rio extrair apenas o preÃ§o da coluna metadata
+review_metadata = review_metadata %&gt;%
+  mutate(price = unlist(lapply(review_metadata[['metadata']], '[[', &quot;price&quot;)))
+  
+scatter.smooth(x=review_metadata$price, y = review_metadata$overall, xlab = &quot;PreÃ§o&quot;, ylab =&quot;Nota&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+</div>
+<div id="clusterizaaao-de-produtos-mais-comprados" class="section level3">
+<h3>ClusterizaÃ§Ã£o de produtos mais comprados</h3>
+<p>Foi utilizado o RapidMiner, com o algoritmo de clusterizaÃ§Ã£o FP-Grouwth (min. support = 0,019) e Create Association Rules (critÃ©rio de confianÃ§a com mÃ­nima de 0,7).</p>
+<p>Abaixo, tabela gerada pela clusterizaÃ§Ã£o com grupos de 3 a 7 produtos.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShrbml0cilcbmxpYnJhcnkocmVhZHhsKVxuR3J1cG9zIDwtIHJlYWRfZXhjZWwoXCJkYXRhL0dydXBvcy54bHN4XCIpXG5rYWJsZShHcnVwb3MsIGFsaWduID0gXCJjXCIsIGNhcHRpb24gPSBcIlByb2R1dG9zIGFzc29jaWFkb3NcIilcbmBgYCJ9 -->
+<pre class="r"><code>library(knitr)
+library(readxl)
+Grupos &lt;- read_excel(&quot;data/Grupos.xlsx&quot;)
+kable(Grupos, align = &quot;c&quot;, caption = &quot;Produtos associados&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Vemos que o suporte mÃ¡ximo alcanÃ§ado nos grupos formados foi de 0,063, para um grupo com 3 produtos.</p>
+<p>Em relaÃ§Ã£o a cada grupo de produtos, temos que: - O grupo com 7 elementos teve suporte de 0,021. - Os grupos com 6 elementos tiveram suporte mÃ©dio de 0,02240. - Os grupos com 5 elementos tiveram suporte mÃ©dio de 0,02211. - Os grupos com 4 elementos tiveram suporte mÃ©dio de 0,02282. - Os grupos com 3 elementos tiveram suporte mÃ©dio de 0,02284.</p>
+</div>
+</div>
+<div id="conclusao" class="section level1">
+<h1>ConclusÃ£o</h1>
+<div id="regressao-linear-de-preao-x-nota" class="section level3">
+<h3>RegressÃ£o Linear de PreÃ§o x Nota</h3>
+<p>AtravÃ©s dos resultados obtidos pelo grÃ¡fico onde no x estÃ¡ o preÃ§o do produto e na variÃ¡vel y a nota dada para o mesmo em determinado review, foi possÃ­vel identificar que nÃ£o existe nenhuma correlaÃ§Ã£o entre preÃ§o e notas, ou seja, Ã© possÃ­vel ter um produto com uma boa nota e preÃ§o baixo e o uma boa nota e preÃ§o alto.</p>
+</div>
+<div id="clusterizaaao-de-produtos-mais-comprados-1" class="section level3">
+<h3>ClusterizaÃ§Ã£o de produtos mais comprados</h3>
+<p>Com isso, temos que as mÃ©dias dos grupos mantÃ©m certa estabilidade de suporte independente do nÃºmero de elementos em cada grupo, com pequena prevalÃªncia dos grupos com os 2 menores nÃºmeros de elementos.</p>
 <!-- rnb-text-end -->
 </div>
+</div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlRyYWJhbGhvIGZpbmFsIE1hY2hpbmUgTGVhcm5pbmcgSSINCm91dHB1dDoNCiAgaHRtbF9ub3RlYm9vazoNCiAgICB0aGVtZTogdW5pdGVkDQogICAgdG9jOiB5ZXMgDQogICAgdG9jX2RlcHRoOiAyDQogIGh0bWxfZG9jdW1lbnQ6DQogICAgZGZfcHJpbnQ6IHBhZ2VkDQogICAgdG9jOiB5ZXMNCiAgICB0b2NfZGVwdGg6ICcyJw0KICBwZGZfZG9jdW1lbnQ6DQogICAgdGhlbWU6IHVuaXRlZA0KICAgIHRvYzogeWVzDQogICAgdG9jX2RlcHRoOiAyDQphdXRob3JlczogTWFyY29zIE5lY28gZSBGYWJpbyBSb3dlZGRlcg0KLS0tDQoNCiMjQWJvcmRhZ2VtIGRvIHByb2JsZW1hDQoNClF1ZXN0w7VlcyBxdWUgZXNwZXJhbW9zIGV4cGxvcmFyIG5vIG5vc3NvIGNvbmp1dG9zIGRlIGRhZG9zIA0KDQoqIFF1YWlzIGdydXBvcyBkZSBnYW1lcyBmcmVxdWVudGVtZW50ZSBjb21wcmFkb3MgZW0gY29uanVudG8/IChDbHVzdGVyaXphw6fDo28pDQoqIFF1YWwgc2Vyw6EgYSBub3RhIGF0cmlidcOtZGEgcG9yIHVtIGNsaWVudGUgYW1hem9uIHBhcmEgZGV0ZXJtaW5hZG8gR2FtZSwgYmFzZWFkbyBub3MgZGFkb3MgaGlzdMOzcmljbz8gKFJlZ3Jlc3PDo28pIA0KDQojIyBGYXNlIGRlIHByw6ktcHJvY2Vzc2FtZW50byANCiAxLiBGb2kgbmVjZXNzw6FyaW8gZGVsZXRhciB0b2RhcyBhcyBsaW5oYXMgcXVlIG7Do28gZXN0YXZhbSBubyBwYWRyw6NvIGpzb24sIHBhcmEgcXVlIG8gaW1wb3J0IGUgZnV0dXJhbWVudGUgbyBwcm9jZXNzYW1lbnRvIG5vIG1vbmdvZGIgcG9zc2Egc2VyIGZlaXRvIGNvcnJldGFtZW50ZQ0KIDIuIEltcG9ydGFyIG9zIGFycXVpdm9zIGRlIHJldmlldyBlIG1ldGFkYXRhIHBhcmEgbyBtb25nb2RiIG5hIG51dmVtDQoNCiMjQW7DoWxpc2UgZXhwbG9yYXTDs3JpYQ0KDQoNCmBgYHtyfQ0KI2xlaXR1cmEgZG9zIGRhZG9zIGVtIGZvcm1hZG8ganNvbg0KbGlicmFyeSgicmpzb24iKQ0KbGlicmFyeSgibW9uZ29saXRlIikNCmxpYnJhcnkoImRldnRvb2xzIikNCg0KZHJpdmVyX2Nvbm5lY3RvciA9ICJtb25nb2RiOi8vcG9zX2RhdGFzY2llbmNlOnBvczEyMzRAZHMxNjM3MDUubWxhYi5jb206NjM3MDUvZ2FtZXNfYW1hem9uIg0KDQpyZXZpZXcgPC0gbW9uZ28oY29sbGVjdGlvbiA9ICJyZXZpZXciLCANCiAgICAgICAgICAgICAgIHZlcmJvc2UgPSBUUlVFLA0KICAgICAgICAgICAgICAgdXJsID0gZHJpdmVyX2Nvbm5lY3RvcikNCg0KbWV0YWRhdGEgPC0gbW9uZ28oY29sbGVjdGlvbiA9ICJtZXRhZGF0YSIsIA0KICAgICAgICAgICAgICAgdmVyYm9zZSA9IFRSVUUsDQogICAgICAgICAgICAgICB1cmwgPSBkcml2ZXJfY29ubmVjdG9yKQ0KDQpwcmljZSA8LSBtZXRhZGF0YSRmaW5kKA0KICBmaWVsZHMgPSd7ImFzaW4iOnRydWUsICJwcmljZSI6IHRydWV9JywNCiAgbGltaXQgPSAxMDAwDQopDQoNCm92ZXJhbGwgPC0gcmV2aWV3JGZpbmQoDQogIGZpZWxkcyA9ICd7ImFzaW4iOnRydWUsICJvdmVyYWxsIjp0cnVlfScsDQogIGxpbWl0ID0gMTAwMA0KKQ0KDQpwcmljZV9vdmVyYWxsID0gbWVyZ2UocHJpY2UsIG92ZXJhbGwsICJhc2luIikNCiBsZW5ndGgocHJpY2Vfb3ZlcmFsbCRwcmljZSkNCg0KI3NjYXR0ZXIuc21vb3RoKHg9cHJpY2Vfb3ZlcmFsbCRwcmljZSksIHkgPSBhYnMocHJpY2Vfb3ZlcmFsbCRvdmVyYWxsKSkNCmBgYA0KDQoNCmBgYHtyfQ0KDQpsaWJyYXJ5KCJybW9uZ29kYiIpDQoNCmNvbm5lY3Rpb24gPC0gbW9uZ28uY3JlYXRlKGhvc3QgPSAiZHMxNjM3MDUubWxhYi5jb206NjM3MDUiLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgZGIgPSAiZ2FtZXNfYW1hem9uIiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgIHRpbWVvdXQgPSAxMDAwKQ0KDQptb25nby5hdXRoZW50aWNhdGUoY29ubmVjdGlvbiwgInBvc19kYXRhc2NpZW5jZSIsICJwb3MxMjM0IikNCg0KbW9uZ28uaXMuY29ubmVjdGVkKGNvbm5lY3Rpb24pDQoNCm1vbmdvLmZpbmQub25lKGNvbm5lY3Rpb24sICJyZXZpZXciKQ0KDQpgYGANCg0KDQoNCiBBZ29yYSBvIHByw7N4aW1vIHBhc3NvIMOpIGRlc2NvYnJpciBhIHZhcmnDoXZlbCBxdWUgdGVuaGEgbWFpb3IgY29ycmVsYcOnw6NvIGNvbSBhIHZhcmnDoXZlbCBxdWUgZXN0YW1vcyB0ZW50YW5kbyBwcmVkaXplciwgb3Ugc2VqYSwgYSB2YXJpw6F2ZWwgb3ZlcmFsbCBxdWUgcmVwcmVzZW50YSBhIG5vdGEgZGFkYSBwZWxvIGpvZ28uDQogDQogDQpgYGB7cn0NCiNHcsOhZmljbyBkZSBkaXNwZXJzw6NvIGNvbQ0KcmV2aWV3X2RmICA8LSBkYXRhLmZyYW1lKHNhbXBsZShnYW1lc19yZXZpZXcpKQ0KbWV0YWRhdGFfZGYgIDwtIGRhdGEuZnJhbWUoc2FtcGxlKGdhbWVzX21ldGFkYXRhKSkNCnJldmlld19tZXRhX2RmIDwtIG1lcmdlKHggPSByZXZpZXdfZGYsIHkgPSBtZXRhZGF0YV9kZiwgYnkgPSAiYXNpbiIsIGFsbCA9IFRSVUUpDQoNCnNjYXR0ZXIuc21vb3RoKHg9cmV2aWV3X21ldGFfZGYkb3ZlcmFsbCwgeSA9IHJldmlld19tZXRhX2RmJHByaWNlLCBtYWluPSJPdmVyYWxsIH4gUHJpY2UiKQ0KYGBgDQoNCg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlRyYWJhbGhvIGZpbmFsIE1hY2hpbmUgTGVhcm5pbmcgSSINCmF1dGhvcjogIk1hcmNvcyBOZWNvIGUgRmFiaW8gUm93ZWRkZXIiDQpvdXRwdXQ6DQogIGh0bWxfbm90ZWJvb2s6DQogICAgdGhlbWU6IHVuaXRlZA0KICAgIHRvYzogeWVzIA0KICAgIHRvY19kZXB0aDogMg0KICBwZGZfZG9jdW1lbnQ6DQogICAgdGhlbWU6IHVuaXRlZA0KICAgIHRvYzogeWVzDQogICAgdG9jX2RlcHRoOiAyDQogIGh0bWxfZG9jdW1lbnQ6DQogICAgZGZfcHJpbnQ6IHBhZ2VkDQogICAgdG9jOiB5ZXMNCiAgICB0b2NfZGVwdGg6ICcyJw0KLS0tDQoNCiMjQWJvcmRhZ2VtIGRvIHByb2JsZW1hDQoNClF1ZXN0w7VlcyBxdWUgZXNwZXJhbW9zIGV4cGxvcmFyIG5vIG5vc3NvIGNvbmp1dG9zIGRlIGRhZG9zIA0KDQoqIFF1YWlzIGdydXBvcyBkZSBnYW1lcyBmcmVxdWVudGVtZW50ZSBjb21wcmFkb3MgZW0gY29uanVudG8/IChDbHVzdGVyaXphw6fDo28pDQoqIFF1YWwgc2Vyw6EgYSBub3RhIGF0cmlidcOtZGEgcG9yIHVtIGNsaWVudGUgYW1hem9uIHBhcmEgZGV0ZXJtaW5hZG8gR2FtZSwgYmFzZWFkbyBub3MgZGFkb3MgaGlzdMOzcmljbz8gKFJlZ3Jlc3PDo28pIA0KDQojIyBGYXNlIGRlIHByw6ktcHJvY2Vzc2FtZW50byANCiBGb3JhbSBmZWl0b3MgZG9pcyBwcsOpLXByb2Nlc3NhbWVudG9zIG5vcyBkYWRvcywgdW0gcGFyYSBjcmlhciBvcyBncnVwb3MgZG9zIGl0ZW5zIG1haXMgY29tcHJhZG9zIGVtIGNvbmp1bnRvIGUgb3V0cm8gcGFyYSBhIGFuw6FsaXNlIGRlIHJlZ3Jlc3PDo28gbGluZWFyLg0KDQogKiBBbsOhbGlzZSBkZSByZWdyZXNzw6NvDQogICAgKyBGb2kgbmVjZXNzw6FyaW8gZGVsZXRhciB0b2RhcyBhcyBsaW5oYXMgcXVlIG7Do28gZXN0YXZhbSBubyBwYWRyw6NvIGpzb24sIHBhcmEgcXVlIG8gaW1wb3J0IGUgZnV0dXJhbWVudGUgbyBwcm9jZXNzYW1lbnRvIG5vIG1vbmdvZGIgcG9zc2Egc2VyIGZlaXRvIGNvcnJldGFtZW50ZQ0KICAgICsgSW1wb3J0YXIgb3MgYXJxdWl2b3MgZGUgcmV2aWV3IGUgbWV0YWRhdGEgcGFyYSBvIG1vbmdvZGIgbmEgbnV2ZW0NCiAgICArIFJlbW92ZXIgdG9kYXMgYXMgcmV2aXPDtWVzIG5hIHF1YWwgbsOjbyBlc3RhIHNlbmRvIGluZm9ybWFkbyBvIHByZcOnbyBkbyBwcm9kdXRvIG5vIGFycXVpdm8gZGUgIG1ldGFkYXRhLg0KDQogKiBDbHVzdGVyaXphw6fDo28gZGUgcHJvZHV0b3MgbWFpcyBjb21wcmFkb3MgDQogICAgKyBkZXZpZG8gw6AgbGltaXRhw6fDo28gZGUgcG9kZXIgZGUgcHJvY2Vzc2FtZW50byBlbSBoYXJkd2FyZSwgZm9pIG5lY2Vzc8OhcmlvIHJlZHV6aXIgbyBkYXRhc2V0IGRlIGFuw6FsaXNlIGRlIGRhZG9zLiBBc3NpbSwgZm9yYW0gY29uc2lkZXJhZG9zIG9zIGFwbGljYXRpdm9zIHF1ZSByZWNlYmVyYW0gbm90YSA1IGRlIGF2YWxpYcOnw6NvIChvdmVyYWxsIDUuMCkgZSBxdWUgZm9yYW0gY29tcHJhZG9zIGVtIGNvbmp1bnRvIGNvbSBvdXRyb3MgYXBsaWNhdGl2b3MuIElzc28gYWp1ZG91IGEgcG90ZW5jaWFsaXphciBhcyBzdWdlc3TDtWVzIGZlaXRhcywgdW1hIHZleiBxdWUgc8OzIGFwbGljYXRpdm9zIGNvbSDDs3RpbWEgcmVwdXRhw6fDo28gc2Vyw6NvIHN1Z2VyaWRvcy4NCiAgICArIEFpbmRhIHBhcmEgYSB0YXJlZmEgZGUgY2x1c3Rlcml6YcOnw6NvLCBmb2kgbmVjZXNzw6FyaW8gZGVzZW52b2x2ZXIgdW0gYXBsaWNhdGl2byBKYXZhIHBhcmEgZ2VyYXIgdW1hIG1hdHJpeiBiaW7DoXJpYSBkYXMgdmVuZGFzIGRlIGFwbGljYXRpdm9zLiBFc3NhIG1hdHJpeiDDqSBvIGlucHV0IHBhcmEgbyBwcm9jZXNzYW1lbnRvIGRlIGNsdXN0ZXJpemHDp8OjbyBubyBSYXBpZE1pbmVyIChFc3NlIGFycXVpdm8gZXN0YSBkZW50cm8gZGEgcGFzdGEgZGF0YSBkbyBwcm9qZXRvLCBtZXRhX1ZpZGVvX0dhbWVzQmluYXJ5TWF0cml4Ljd6KQ0KIA0KDQojQW7DoWxpc2UgZXhwbG9yYXTDs3JpYSBlIFJlc3VsdGFkb3MNCg0KQWJhaXhvIHF1YWlzIGFuw6FsaXNlcyBmb3JhbSB1dGlsaXphZGFzIHBhcmEgZW50ZW5kZXIgb3MgZGFkb3MuDQoNCiMjI1JlZ3Jlc3PDo28gTGluZWFyDQpQcmltZWlybyBwYXNzbyDDqSBjYXJyZWdhciBvcyBkYWRvcyBxdWUgZXN0w6NvIHNhbHZvcyBubyBtb25nbywgbmVzdGUgY2FzbyBvIGJhbmNvIGVzdMOhIGxvY2FsaXphZG8gbmEgbnV2ZW0uIE8gYmFuY28gcG9zc3VpIGFzIGNvbGxlY3Rpb25zIHJldmlldyBlIG1ldGFkYXRhLCBhIHByaW1laXJhIHBvc3N1aSBpbmZvcm1hw6fDtWVzIGNvbW8gbyB0ZXh0byBlc2NyaXRvIGRlIHJldmlzw6NvIGUgYSBub3RhIGRhZGEgYW8gcHJvZHV0bywgasOhIG5hIG1ldGFkYXRhIGVzdMOjbyBhbGd1bWFzIGluZm9ybWHDp8O1ZXMgcmVsYWNpb2FuYWRhcyBhbyBwcm9kdXRvIGNvbW8gcHJlw6dvIGUgY2F0ZWdvcmlhLg0KDQpgYGB7cn0NCiNiaWJsaW90ZWNhIHBhcmEgY29uZXjDo28gY29tIG8gYmFuY28gZGUgZGFkb3MgbW9uZ28NCmxpYnJhcnkoIm1vbmdvbGl0ZSIpDQpsaWJyYXJ5KCJkZXZ0b29scyIpDQpsaWJyYXJ5KCJkcGx5ciIpDQoNCiNVcmwgZGUgY29uZXjDo28gdm9tIG8gYmFuY28NCmRyaXZlcl9jb25uZWN0b3IgPSAibW9uZ29kYjovL3Bvc19kYXRhc2NpZW5jZTpwb3MxMjM0QGRzMTYzNzA1Lm1sYWIuY29tOjYzNzA1L2dhbWVzX2FtYXpvbiINCg0KcmV2aWV3IDwtIG1vbmdvKGNvbGxlY3Rpb24gPSAicmV2aWV3IiwgDQogICAgICAgICAgICAgICB2ZXJib3NlID0gVFJVRSwNCiAgICAgICAgICAgICAgIHVybCA9IGRyaXZlcl9jb25uZWN0b3IpDQoNCg0KI0NvbnN1bHRhIGRvcyBkYWRvcywgdW5pbmRvIGFzIGR1YXMgY29sbGVjdGlvbnMgcGVsbyBjw7NkaWdvIGRvIHByb2R1dG8NCnJldmlld19tZXRhZGF0YSA8LSByZXZpZXckYWdncmVnYXRlKCdbDQogICAgICAgICAgeyIkbG9va3VwIiA6IHsNCiAgICAgICAgICAgICJmcm9tIiA6ICJtZXRhZGF0YSIsDQogICAgICAgICAgICAibG9jYWxGaWVsZCIgOiAiYXNpbiIsDQogICAgICAgICAgICAiZm9yZWlnbkZpZWxkIiA6ICJhc2luIiwNCiAgICAgICAgICAgICJhcyIgOiAibWV0YWRhdGEiDQogICAgICAgICAgfX0sDQogICAgICAgICAgeyIkbGltaXQiOiA1MDB9DQogICAgICBdJykNCg0KYGBgDQoNCkdyw6FmaWNvIGRlIHJlZ3Jlc3PDo28sIHBhcmEgdGVudGFyIGlkZW50aWZpY2FyIHNlIGV4aXN0ZSBhbGd1bWEgcmVsYcOnw6NvIGVudHJlIG8gcHJlw6dvIGRvIHByb2R1dG8gZSBhIG5vdGEgZGFkYSBwYXJhIGFxdWVsZSBwcm9kdXRvLg0KDQpgYGB7cn0NCiNBcXVpIGZvaSBuZWNlc3PDoXJpbyBleHRyYWlyIGFwZW5hcyBvIHByZcOnbyBkYSBjb2x1bmEgbWV0YWRhdGENCnJldmlld19tZXRhZGF0YSA9IHJldmlld19tZXRhZGF0YSAlPiUNCiAgbXV0YXRlKHByaWNlID0gdW5saXN0KGxhcHBseShyZXZpZXdfbWV0YWRhdGFbWydtZXRhZGF0YSddXSwgJ1tbJywgInByaWNlIikpKQ0KICANCnNjYXR0ZXIuc21vb3RoKHg9cmV2aWV3X21ldGFkYXRhJHByaWNlLCB5ID0gcmV2aWV3X21ldGFkYXRhJG92ZXJhbGwsIHhsYWIgPSAiUHJlw6dvIiwgeWxhYiA9Ik5vdGEiKQ0KYGBgDQoNCiMjIyBDbHVzdGVyaXphw6fDo28gZGUgcHJvZHV0b3MgbWFpcyBjb21wcmFkb3MNCg0KICBGb2kgdXRpbGl6YWRvIG8gUmFwaWRNaW5lciwgY29tIG8gYWxnb3JpdG1vIGRlIGNsdXN0ZXJpemHDp8OjbyBGUC1Hcm91d3RoIChtaW4uIHN1cHBvcnQgPSAwLDAxOSkgZSBDcmVhdGUgQXNzb2NpYXRpb24gUnVsZXMgKGNyaXTDqXJpbyBkZSBjb25maWFuw6dhIGNvbSBtw61uaW1hIGRlIDAsNykuDQogIA0KIEFiYWl4bywgdGFiZWxhIGdlcmFkYSBwZWxhIGNsdXN0ZXJpemHDp8OjbyBjb20gZ3J1cG9zIGRlIDMgYSA3IHByb2R1dG9zLg0KICANCmBgYHtyfQ0KbGlicmFyeShrbml0cikNCmxpYnJhcnkocmVhZHhsKQ0KR3J1cG9zIDwtIHJlYWRfZXhjZWwoImRhdGEvR3J1cG9zLnhsc3giKQ0Ka2FibGUoR3J1cG9zLCBhbGlnbiA9ICJjIiwgY2FwdGlvbiA9ICJQcm9kdXRvcyBhc3NvY2lhZG9zIikNCmBgYA0KIA0KICBWZW1vcyBxdWUgbyBzdXBvcnRlIG3DoXhpbW8gYWxjYW7Dp2FkbyBub3MgZ3J1cG9zIGZvcm1hZG9zIGZvaSBkZSAwLDA2MywgcGFyYSB1bSBncnVwbyBjb20gMyBwcm9kdXRvcy4NCiAgDQogIEVtIHJlbGHDp8OjbyBhIGNhZGEgZ3J1cG8gZGUgcHJvZHV0b3MsIHRlbW9zIHF1ZToNCiAgLSBPIGdydXBvIGNvbSA3IGVsZW1lbnRvcyB0ZXZlIHN1cG9ydGUgZGUgMCwwMjEuDQogIC0gT3MgZ3J1cG9zIGNvbSA2IGVsZW1lbnRvcyB0aXZlcmFtIHN1cG9ydGUgbcOpZGlvIGRlIDAsMDIyNDAuDQogIC0gT3MgZ3J1cG9zIGNvbSA1IGVsZW1lbnRvcyB0aXZlcmFtIHN1cG9ydGUgbcOpZGlvIGRlIDAsMDIyMTEuDQogIC0gT3MgZ3J1cG9zIGNvbSA0IGVsZW1lbnRvcyB0aXZlcmFtIHN1cG9ydGUgbcOpZGlvIGRlIDAsMDIyODIuDQogIC0gT3MgZ3J1cG9zIGNvbSAzIGVsZW1lbnRvcyB0aXZlcmFtIHN1cG9ydGUgbcOpZGlvIGRlIDAsMDIyODQuDQogIA0KDQojIENvbmNsdXPDo28NCg0KIyMjUmVncmVzc8OjbyBMaW5lYXIgZGUgUHJlw6dvIHggTm90YSANCiBBdHJhdsOpcyBkb3MgcmVzdWx0YWRvcyBvYnRpZG9zIHBlbG8gZ3LDoWZpY28gb25kZSBubyB4IGVzdMOhIG8gcHJlw6dvIGRvIHByb2R1dG8gZSBuYSB2YXJpw6F2ZWwgeSBhIG5vdGEgZGFkYSBwYXJhIG8gbWVzbW8gZW0gZGV0ZXJtaW5hZG8gcmV2aWV3LCBmb2kgcG9zc8OtdmVsIGlkZW50aWZpY2FyIHF1ZSBuw6NvIGV4aXN0ZSBuZW5odW1hIGNvcnJlbGHDp8OjbyBlbnRyZSBwcmXDp28gZSBub3Rhcywgb3Ugc2VqYSwgw6kgcG9zc8OtdmVsIHRlciB1bSBwcm9kdXRvIGNvbSB1bWEgYm9hIG5vdGEgZSBwcmXDp28gYmFpeG8gZSBvIHVtYSBib2Egbm90YSBlIHByZcOnbyBhbHRvLiANCg0KIyMjQ2x1c3Rlcml6YcOnw6NvIGRlIHByb2R1dG9zIG1haXMgY29tcHJhZG9zDQogDQogQ29tIGlzc28sIHRlbW9zIHF1ZSBhcyBtw6lkaWFzIGRvcyBncnVwb3MgbWFudMOpbSBjZXJ0YSBlc3RhYmlsaWRhZGUgZGUgc3Vwb3J0ZSBpbmRlcGVuZGVudGUgZG8gbsO6bWVybyBkZSBlbGVtZW50b3MgZW0gY2FkYSBncnVwbywgY29tIHBlcXVlbmEgcHJldmFsw6puY2lhIGRvcyBncnVwb3MgY29tIG9zIDIgbWVub3JlcyBuw7ptZXJvcyBkZSBlbGVtZW50b3MuDQoNCg0KDQoNCg==</div>
 
 
 

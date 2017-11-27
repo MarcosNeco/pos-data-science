@@ -1,3 +1,8 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
 s---
 title: "Trabalho final Machine Learning I"
 output:
@@ -63,8 +68,8 @@ price_overall = merge(price, overall, "asin")
 ```
 
 
-```{r}
 
+```{r}
 library("RMongo")
 
 mongo <- mongoDbConnect("games_amazon", host = "ds163705.mlab.com", port = "63705")
@@ -79,8 +84,8 @@ otp <- dbAggregate(mongo, "review", c(' { "$project" : { "baz" : "$asin" } } ',
 print(otp)
 
 dbDisconnect(mongo)
-
 ```
+
 
 
 
@@ -96,3 +101,32 @@ review_meta_df <- merge(x = review_df, y = metadata_df, by = "asin", all = TRUE)
 scatter.smooth(x=review_meta_df$overall, y = review_meta_df$price, main="Overall ~ Price")
 ```
 
+## Resultados
+
+# Regras Associativas e Clusterização
+
+  Para a tarefa de clusterização por regras associativas, devido à limitação de poder de processamento em hardware, foi necessário reduzir o dataset de análise de dados. Assim, foram considerados os aplicativos que receberam nota 5 de avaliação (overall 5.0) e que foram comprados em conjunto com outros aplicativos. Isso ajudou a potencializar as sugestões feitas, uma vez que só aplicativos com ótima reputação serão sugeridos.
+  
+  Ainda para a tarefa de clusterização, foi necessário desenvolver um aplicativo Java para gerar uma matriz binária das vendas de aplicativos. Essa matriz é o input para o processamento de clusterização no RapidMiner.
+  
+  No RapidMiner, foram usados processos de FP-Grouwth (min. support = 0,019) e Create Association Rules (critério de confiança com mínima de 0,7).
+  
+  Abaixo, tabela gerada pela clusterização com grupos de 3 a 7 produtos.
+  
+  Vemos que o suporte máximo alcançado nos grupos formados foi de 0,063, para um grupo com 3 produtos.
+  
+  Em relação a cada grupo de produtos, temos que:
+  - O grupo com 7 elementos teve suporte de 0,021.
+  - Os grupos com 6 elementos tiveram suporte médio de 0,02240.
+  - Os grupos com 5 elementos tiveram suporte médio de 0,02211.
+  - Os grupos com 4 elementos tiveram suporte médio de 0,02282.
+  - Os grupos com 3 elementos tiveram suporte médio de 0,02284.
+  
+  Com isso, temos que as médias dos grupos mantém certa estabilidade de suporte independente do número de elementos em cada grupo, com pequena prevalência dos grupos com os 2 menores números de elementos.
+
+```{r echo = FALSE}
+library(knitr)
+library(readxl)
+Grupos <- read_excel("data/Grupos.xlsx")
+kable(Grupos, align = "c", caption = "Produtos associados", )
+```

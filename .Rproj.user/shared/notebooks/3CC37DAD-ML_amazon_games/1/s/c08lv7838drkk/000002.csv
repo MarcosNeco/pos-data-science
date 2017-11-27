@@ -1,0 +1,4 @@
+"0","library(knitr)"
+"0","library(readxl)"
+"0","Grupos <- read_excel(""data/Grupos.xlsx"")"
+"0","kable(Grupos, align = ""c"", caption = ""Produtos associados"", )"
