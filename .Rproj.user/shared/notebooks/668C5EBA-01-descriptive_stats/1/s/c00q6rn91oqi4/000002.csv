@@ -1,6 +1,0 @@
-"0","```r
-summary(acessos$Acessos)
-```"
-"1","   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  0.000   0.000   1.500   3.233   6.500  13.000 
-"

@@ -1,7 +1,0 @@
-"0","```r
-## CÃ³digo aqui
-acessaram_aula <- acessos_ordenados[acessos_ordenados > 0]
-mean(acessaram_aula)
-```"
-"1","[1] 5.105263
-"

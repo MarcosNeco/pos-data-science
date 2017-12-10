@@ -1,5 +1,0 @@
-"0","```r
-median( abs( acessos$Acessos - median( acessos$Acessos )))
-```"
-"1","[1] 1.5
-"

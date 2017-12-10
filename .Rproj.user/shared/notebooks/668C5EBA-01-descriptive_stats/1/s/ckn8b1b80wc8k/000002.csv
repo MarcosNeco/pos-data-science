@@ -1,6 +1,0 @@
-"0","```r
-#MÃ©dia truncada para acessos por hora
-mean(acessos_hora_ordered, trim = .2)
-```"
-"1","[1] 2.8125
-"

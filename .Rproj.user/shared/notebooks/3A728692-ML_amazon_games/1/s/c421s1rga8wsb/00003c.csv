@@ -1,5 +1,0 @@
-"0","#Aqui foi necessário extrair apenas o preço da coluna metadata"
-"0","review_metadata = review_metadata %>%"
-"0","  mutate(price = unlist(lapply(review_metadata[['metadata']], '[[', ""price"")))"
-"0","  "
-"0","scatter.smooth(x=review_metadata$price, y = review_metadata$overall, xlab = ""Preço"", ylab =""Nota"")"

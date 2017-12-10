@@ -1,5 +1,0 @@
-"0","```r
-sd(acessos$Acessos) / mean(acessos$Acessos) * 100
-```"
-"1","[1] 116.2002
-"

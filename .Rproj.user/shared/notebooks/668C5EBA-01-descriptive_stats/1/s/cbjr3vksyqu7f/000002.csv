@@ -1,5 +1,0 @@
-"0","```r
-mean(acessos$Acessos, trim = .1)
-```"
-"1","[1] 2.75
-"

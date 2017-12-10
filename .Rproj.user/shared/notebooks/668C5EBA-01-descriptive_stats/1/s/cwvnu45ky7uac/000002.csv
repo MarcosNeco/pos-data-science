@@ -1,6 +1,0 @@
-"0","```r
-#Desvio padrÃ£o dos acessos por hora aos elementos
-sd(acessos_hora_ordered)
-```"
-"1","[1] 5.034483
-"
